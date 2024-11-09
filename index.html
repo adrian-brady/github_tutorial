@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="author" content="Adrian Brady"/>
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Atkin<link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+        <title>Git</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="main-content">
+                <picture>
+                    <source srcset="img/Git-Logo-White.svg" media="(prefers-color-scheme: dark)">
+                    <img src="img/Git-Logo-2Color.svg">
+                </picture>
+                <h1>Git</h1>
+                <p><a href="https://git-scm.com/">Git</a> is a Version Control and collaboration tool invented by Linus Torvalds, the creator of Linux.</p>
+                <p>Git is the most popular version control software for software development, with a popular Git repository platform, GitHub, having more than 100 million users and more than 420 million repositories.</p>
+                <h2>Basics of Git</h2>
+                <p>Git is installed by default on many Linux distributions and on MacOS. To use git, enter the <code>git</code> command in the terminal. To initialize a repository, use the git init command. This will create a new folder in the current directory, <code>.git/</code>, which will hold all of Git's information. To start tracking a file, use the <code>git add "filename"</code>. This adds the file to Git, and Git will track the file. If a change is made to the file, Git will know a change has been made. The status of the repository can be checked using <code>git status</code>. This command will print out the current status of the Git repository, listing staged changes, unstaged changes and untracked files. A staged change is a change made to a file that is tracked by Git and that has been added using the <code>git add</code> command. Unstaged changes are changes made to a tracked file which have not been added using the <code>git add</code> command. Untracked changes are files which have not been added to Git to be tracked.</p>
+                <p>Any staged changes can be added to a "commit" to save the state of those changes. Each commit has a unique identifier, called its <b>commit hash</b>, or just hash or SHA for short. These commits build on top of each other to build a history of changes. To make a commit, use the command <code>git commit</code>. This will open your system's default editor with some predefined text. The first line will be the title of the commit message which will be saved with the commit. The next line(s) will be used as additional description information. The flag <code>-m</code> is often used with the <code>commit</code> command to only define a title for the commit message without opening the editor <code>git commit -m "my message"</code>. However, it is beneficial to add descriptive information and context to the commit so you or others working on the project can understand why a change was made or what was changed. Convention has commit messages reading as <code>fix bug</code> and not <code>fixed bug</code> or <code>fixes bug</code>.</p>
+                <p>For the rest of this writeup, I will use the following file structure to demonstrate working with Git.</p>
+                <pre><code class="big-code">$ tree
+.
+├── src
+│   └── main.c
+├── README.md
+├── .gitignore
+└── .git</code></pre>
+                <h2 id="2">Working with Branches</h2>
+                <p><a href="https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell">Branches</a> are a core component of Git's workflow. They allow for diverging sets of changes to be made to a codebase with near no cost of performance or storage. A branch can be created in many ways, though the most basic command is <code>git branch "branchname"</code>. This will create a new branch that "points" to the current commit. There are a few commands which can be used to switch between branches. <code>git checkout "branchname"</code> is historically the way to go. However, <code>checkout</code> is used to perform many actions in Git, and a small mistype can result in losing data. Because of this, the command <code>git switch "branchname"</code> is now standard, though <code>checkout</code> is still used for switching to a certain commit hash. To create and switch to a new branch, use the command <code>git switch -c "branchname"</code>. I am creating a new branch <code>example</code> off of my <code>main</code> branch for demonstration purposes. Changes to a file, such as <code>main.c</code> will need to be staged like normal. However, now that I am on the <code>example</code> branch, a new commit I make will be to the <code>example</code> branch and not the <code>main</code> branch. This can be seen by running the command <code>git log</code>, or if you prefer less output to look through, <code>git log --oneline</code>, which will only output the commit message title instead of also displaying the body of the commit. There are now 2 commits in my repository. The first initial commit, and the changes I just made to <code>main.c</code>. </p>
+                <pre><code class="big-code"><i>on branch example</i>
+$ git log --oneline
+5baa632 (HEAD -> example) example commit
+81391b4 (main) initial commit</code></pre>
+                <p>Now, switching back to the <code>main</code> branch, and checking the logs, there will only be the one commit, and the commit made on the <code>example</code> branch is not present on this branch.</p>
+                <pre><code class="big-code"><i>on branch main</i>
+$ git log --oneline
+81391b4 (HEAD -> main) initial commit</code></pre>
+                <p>Additionally, a reference of the <code>main</code> branch is visible in the log output while on the <code>example</code> branch. This is because <code>main</code> is pointing to a commit that is in the history of <code>example</code>. If main had another commit added, it would no longer appear as a reference in the log output of <code>example</code>. This is because the history between the two branches has then <i>diverged</i>.</p>
+                <h2>Collaboration and Organization</h2>
+                <p>Branches can be <b>merged</b> together to combine changes from one branch into another. The command to do so it <code>git merge "other-branch"</code>. This will merge the changes of <code>other-branch</code> onto the currently selected branch. Usually when first learning Git, there aren't any <i>conflicts</i> between changes made on two branches, but sometimes there are. If there is a conflict between the changes made on two branches, say between branches <code>main</code> and <code>feature</code>, you, the developer will have to resolve this <b>merge conflict</b>. Git will place markers into the conflicting files along with the changes from each branch so you can pick and choose which changes to keep or discard (make sure to delete the markers, or they will be included with the resolved commit). If you are having trouble, <code>git status</code> will give you information about what to do next, and the status of your repository during the conflict.</p>
+                <p>TODO - write about remotes, fetch, and pull</p>
+                <h2>Rewriting History</h2>
+                <p>It is very useful to have a cursory understanding of how to fix mistakes in Git. There are a few commands which are key to being able to slice and dice your changes so you can maintain a clean history in your repository.</p>
+                <p>TODO - write about rebase, cherry pick, --amend, and more</p>
+                <ol>
+                    <li>rebase</li>
+                    <li>cherry-pick</li>
+                    <li>commit --amend</li>
+                    <li>commit --amend --no-edit</li>
+                </ol>
+                <h2>Tips and Tools</h2>
+                <p>Git keeps track of basically every Git action taken in a repository. This information is stored in the <code>reflog</code>. To see the reflog, use the command <code>git reflog</code> and you will be able to see where the <code>HEAD</code> was pointing to. The reflog can be used to retrieve an old commit which was accidentally deleted. This can be done with <code>git checkout "COMMIT HASH"</code>. The commit hash is the set of letters and numbers next to every commit. From this, you can create a new branch off of this commit and apply changes however you see fit.</p>
+            </div>
+        </div>
+    </body>
+</html>

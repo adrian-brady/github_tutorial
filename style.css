@@ -1,0 +1,123 @@
+:root {
+  color-scheme: light dark;
+}
+
+#2 {
+    text-dectoration-color: rgb(240, 240, 240);
+}
+
+@media (prefers-color-scheme: dark) {
+    .element {
+        color: black;
+        background-color: white;
+    }
+}
+@media (prefers-color-scheme: light) {
+    .element {
+        color: white;
+        background-color: black;
+    }
+}
+
+body {
+    font-family: "Atkinson Hyperlegible", sans-setif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+p {
+    font-size: 19px;
+}
+
+a {
+    outline-color: rgb(252, 81, 81);
+    text-decoration-color: rgb(252, 81, 81);
+    color: rgb(252, 81, 81);
+    border-top-color: rgb(252, 81, 81);
+    border-right-color: rgb(252, 81, 81);
+    border-left-color: rgb(252, 81, 81);
+    border-top-color: rgb(252, 81, 81);
+}
+
+
+.container {
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    grid-template-rows: 100%;
+}
+
+.main-content {
+    grid-column-start: 2;
+}
+
+code {
+    border: 1px solid #3a3a3a;
+    border-radius: .2rem;
+    padding: .18em .24em .04em;
+    font-size: .82rem;
+    font-weight: 110;
+    box-shadow: 0 0 30px -10px #000c;
+    font-family: "FiraCode Mono", monospace;
+    font-weight: 500;
+    color: rgb(235, 219, 178);
+}
+
+html {
+    line-height: 1.7;
+    background-color: #313131;
+    color: rgb(240, 240, 240);
+}
+
+pre {
+    background: rgb(40, 40, 40);
+    border: 1px solid rgb(252, 81, 81);
+    border-left: 3px solid rgb(252, 81, 81);
+    color: rgb(235, 219, 178);
+    page-break-inside: avoid;
+    font-family: monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 1.6em;
+    max-width: 100%;
+    overflow: auto;
+    padding: 1em 1.5em;
+    display: block;
+    word-wrap: break-word;
+}
+
+.big-code {
+    border: none;
+}
+// <uniquifier>: Use a unique and descriptive class name
+// <weight>: Use a value from 300 to 700
+
+.fira-code {
+  font-family: "Fira Code", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.atkinson-hyperlegible-regular {
+    font-family: "Atkinson Hyperlegible", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.atkinson-hyperlegible-bold {
+    font-family: "Atkinson Hyperlegible", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.atkinson-hyperlegible-regular-italic {
+    font-family: "Atkinson Hyperlegible", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.atkinson-hyperlegible-bold-italic {
+    font-family: "Atkinson Hyperlegible", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+}
